@@ -76,7 +76,7 @@ def register_user(username, display_name, password):
     """Hits the /users/enroll endpoint to create a new user."""
     payload = {"username": username, "display_name": display_name, "password": password}
     try:
-        response = httpx.post(f"{settings.API_BASE_URL}/users/enroll", json=payload)
+        response = httpx.post(f"{settings.API_BASE_URL}/user/enroll", json=payload)
         return response.status_code == 201
     except Exception as e:
         logging.error(f"Registration error: {e}")

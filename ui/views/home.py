@@ -1,9 +1,10 @@
 import streamlit as st
 
 st.title("⚡ Welcome to Sai Priya Darsini's Habit Tracker!")
-st.subheader(
-    f"Greetings, {st.session_state.user.get('display_name', 'Done')}! Where would you like to travel today?"
-)
+display_name = "Don"
+if st.session_state.user:
+    display_name = st.session_state.user.get("display_name", "Don")
+st.subheader(f"Greetings, {display_name}! Where would you like to travel today?")
 st.write("Use the portals below to navigate through your productivity kingdom.")
 
 st.divider()
@@ -15,7 +16,7 @@ col1, col2 = st.columns(2, gap="large")
 with col1:
     # Card 1: Dashboard
     with st.container(border=True):
-        st.markdown("### 🏰 Dashboard Center")
+        st.markdown("### 🏰 Dashboard")
         st.write(
             "Get a bird's-eye view of your entire campaign. Check your monthly mastery, view the master ledger, and see urgent tasks."
         )
@@ -27,7 +28,7 @@ with col1:
 
     # Card 2: Tracker
     with st.container(border=True):
-        st.markdown("### 📈 Quest Tracker")
+        st.markdown("### 📈 Habit Tracker")
         st.write(
             "Time-travel through your calendar! Log your daily habits, check past days, and view your epic yearly dominance chart."
         )
@@ -51,10 +52,10 @@ with col2:
 
     # Card 4: Tasks
     with st.container(border=True):
-        st.markdown("### 🎯 Side Quests")
+        st.markdown("### 🎯 Task Remainder")
         st.write(
             "One-off missions with deadlines. Stay on top of urgent tasks and claim victory to earn your spot in the Hall of Triumphs."
         )
         st.write("")  # Spacer
-        if st.button("View Side Quests ➔", key="btn_tasks", use_container_width=True):
+        if st.button("View Tasks ➔", key="btn_tasks", use_container_width=True):
             st.switch_page("views/tasks.py")

@@ -7,7 +7,7 @@ from model.schema.habit_schema import HabitResponse
 
 
 class UserBase(BaseModel):
-    user_name: str
+    username: str
     display_name: str
     password: str
 

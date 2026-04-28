@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 from client import api_client
 
-st.title("🎯 Side Quests (Tasks)")
+st.title("🎯 Task remainder")
 
 # 1. Fetch data
 tasks = api_client.fetch_tasks(st.session_state.token)
@@ -14,33 +14,33 @@ due_today_tasks = [
 ]
 if due_today_tasks:
     # Triggers a sleek slide-in notification at the bottom right
-    st.toast("🚨 You have Side Quests due TODAY! Check your list!", icon="⚠️")
+    st.toast("🚨 You have Task due TODAY! Check your list!", icon="⚠️")
 
     # Also display a big warning box at the top
     st.warning(
-        f"**Attention Hero!** You have {len(due_today_tasks)} quests expiring today!"
+        f"**Attention Hero!** You have {len(due_today_tasks)} Task expiring today!"
     )
 
 # 3. Sidebar to Add New Task
 with st.sidebar:
-    st.header("📝 New Side Quest")
+    st.header("📝 New Task")
     with st.form("new_task_form"):
-        task_name = st.text_input("Quest Name")
+        task_name = st.text_input("Task Name")
         task_desc = st.text_input("Description")
         due_date = st.date_input("Expected Completion Date")
-        if st.form_submit_button("Add Quest"):
+        if st.form_submit_button("Add Task"):
             if api_client.add_task(
                 st.session_state.token, task_name, task_desc, due_date
             ):
-                st.success("Side Quest Added!")
+                st.success("Task Added!")
                 st.rerun()
 
 # 4. Display Active Tasks
-st.subheader("⚔️ Active Quests")
+st.subheader("⚔️ Active Tasks")
 active_tasks = [t for t in tasks if not t["is_completed"]]
 
 if not active_tasks:
-    st.info("No active side quests! You are all caught up.")
+    st.info("No active Task! You are all caught up.")
 
 for task in active_tasks:
     # Add a red border if it's due today, otherwise normal

@@ -15,12 +15,9 @@ with tab_login:
         if st.form_submit_button("Enter Realm"):
             token = api_client.login(username, password)
             if token:
-                print(token)
-
                 cookie_controller.set("auth_token", token)
                 st.session_state.token = token
                 st.session_state.user = api_client.get_current_user(token)
-                print(st.session_state.user)
                 st.rerun()
             else:
                 st.error("Incorrect email or password!")

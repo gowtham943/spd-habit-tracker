@@ -3,12 +3,12 @@ from client import api_client
 import pandas as pd
 import plotly.express as px
 
-st.title("📈 Quest Tracker")
+st.title("📈 Habit Tracker")
 
 habits = api_client.fetch_habits(st.session_state.token)
 
 if not habits:
-    st.warning("Go to 'Your Habits' to create a quest first!")
+    st.warning("Go to 'Your Habits' to create a habit first!")
     st.stop()
 
 # Use Tabs to separate Today's Actions from Historical Data
@@ -22,14 +22,14 @@ tab_log, tab_month, tab_year = st.tabs(
 # ==========================================
 with tab_log:
     st.subheader("Time Travel Check-in 📅")
-    st.write("Pick a day on the calendar to log your quests!")
+    st.write("Pick a day on the calendar to log your Habit!")
 
     # 1. THE CALENDAR WIDGET
     # Defaults to today, but lets the user click and open a full monthly calendar
     selected_date = st.date_input("Select Date", value=pd.to_datetime("today"))
 
     st.divider()
-    st.markdown(f"### Quests for **{selected_date.strftime('%B %d, %Y')}**")
+    st.markdown(f"### Habits for **{selected_date.strftime('%B %d, %Y')}**")
 
     # 2. THE QUEST LIST
     for habit in habits:
@@ -56,11 +56,11 @@ with tab_log:
 
 with tab_month:
     st.subheader("Monthly Streak Viewer")
-    st.info("Select a quest to see its history logs.")
+    st.info("Select a habit to see its history logs.")
 
     # Let the user pick a habit to view stats for
     habit_names = {h["name"]: h["id"] for h in habits}
-    selected_habit_name = st.selectbox("Choose Quest", list(habit_names.keys()))
+    selected_habit_name = st.selectbox("Choose Habit", list(habit_names.keys()))
 
     if selected_habit_name:
         habit_id = habit_names[selected_habit_name]
@@ -84,11 +84,11 @@ with tab_year:
         for habit in habits:
             logs = api_client.fetch_logs(st.session_state.token, habit["id"])
             for log in logs:
-                all_logs.append({"Quest": habit["name"], "Date": log["completed_date"]})
+                all_logs.append({"Habit": habit["name"], "Date": log["completed_date"]})
 
     # 2. Check if we actually have data to draw
     if not all_logs:
-        st.info("No quests completed yet this year. Time to start grinding!")
+        st.info("No habits completed yet this year. Time to start grinding!")
     else:
         # 3. Use Pandas to crunch the numbers
         df = pd.DataFrame(all_logs)
@@ -100,7 +100,7 @@ with tab_year:
 
         # Count how many times each quest was done per month
         chart_data = (
-            df.groupby(["Month_Sort", "Month", "Quest"])
+            df.groupby(["Month_Sort", "Month", "Habit"])
             .size()
             .reset_index(name="Completions")
         )
@@ -111,8 +111,8 @@ with tab_year:
             chart_data,
             x="Month",
             y="Completions",
-            color="Quest",  # Different color for each habit!
-            title="Total Quests Completed per Month",
+            color="Habit",  # Different color for each habit!
+            title="Total Habits Completed per Month",
             text_auto=True,  # Prints the exact number inside the bar
             color_discrete_sequence=px.colors.qualitative.Pastel,  # Kid-friendly colors!
         )
@@ -120,7 +120,7 @@ with tab_year:
         # Make the chart look modern and clean
         fig.update_layout(
             xaxis_title="Month",
-            yaxis_title="Quests Mastered",
+            yaxis_title="Habits Mastered",
             plot_bgcolor="rgba(0,0,0,0)",
             paper_bgcolor="rgba(0,0,0,0)",
             hovermode="x unified",

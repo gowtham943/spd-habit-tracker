@@ -21,15 +21,12 @@ elif "token" not in st.session_state:
     st.session_state.user = None
 
 # 3. Define the Pages
-st.title("⚡ Sai Priya Dharsini's Habit Tracker")
 login_page = st.Page("views/login.py", title="Login / Register", icon="🛡️")
-home_page = st.Page("views/home.py", title="Home Base", icon="🏠", default=True)
-dashboard_page = st.Page(
-    "views/dashboard.py", title="Command Center", icon="🏰", default=True
-)
+home_page = st.Page("views/home.py", title="Home", icon="🏠", default=True)
+dashboard_page = st.Page("views/dashboard.py", title="Dashboard", icon="🏰")
 habits_page = st.Page("views/habits.py", title="Your Habits", icon="📜")
-tracker_page = st.Page("views/tracker.py", title="Quest Tracker", icon="📈")
-tasks_page = st.Page("views/tasks.py", title="Side Quests", icon="🎯")
+tracker_page = st.Page("views/tracker.py", title="Habits Tracker", icon="📈")
+tasks_page = st.Page("views/tasks.py", title="Task remainder", icon="🎯")
 
 # 4. The Magic Router
 if st.session_state.token is None:

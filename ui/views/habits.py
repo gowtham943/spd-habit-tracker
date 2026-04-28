@@ -5,20 +5,20 @@ st.title("📜 Your Habit Scrolls")
 
 # Sidebar for adding habits
 with st.sidebar:
-    st.header("➕ Add New Quest")
+    st.header("➕ Add New Habit")
     with st.form("new_habit"):
-        new_name = st.text_input("Quest Name")
+        new_name = st.text_input("Habit Name")
         new_frequency = st.text_input("Frequency (e.g., Daily, Weekly)")
-        if st.form_submit_button("Create Quest"):
+        if st.form_submit_button("Create Habit"):
             if api_client.add_habit(st.session_state.token, new_name, new_frequency):
-                st.success("Quest Added!")
+                st.success("Habit Added!")
                 st.rerun()
 
 # Main Display
 habits = api_client.fetch_habits(st.session_state.token)
 
 if not habits:
-    st.info("You don't have any quests yet! Add one from the sidebar.")
+    st.info("You don't have any Habits yet! Add one from the sidebar.")
 
 for habit in habits:
     st.markdown(

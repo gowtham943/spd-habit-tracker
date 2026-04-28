@@ -6,6 +6,7 @@ from config.database_config import db
 from routes.auth_route import auth_router
 from routes.habit_route import habit_router
 from routes.log_route import log_router
+from routes.task_route import task_router
 from routes.user_route import user_router
 
 
@@ -21,3 +22,4 @@ app.include_router(auth_router)
 app.include_router(habit_router)
 app.include_router(log_router)
 app.include_router(user_router)
+app.include_router(task_router)
