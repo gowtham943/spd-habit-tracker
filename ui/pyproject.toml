@@ -1,0 +1,15 @@
+[project]
+name = "ui"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "pandas>=3.0.2",
+    "plotly>=6.7.0",
+    "pydantic-settings>=2.14.0",
+    "streamlit>=1.56.0",
+    "streamlit-cookies-controller>=0.0.4",
+    "streamlit-lottie>=0.0.5",
+]

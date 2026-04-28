@@ -1,11 +1,13 @@
 from datetime import date
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
-from api.model.base_model import Base
 from sqlalchemy import Date, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from model.habit import Habit
+from model.base_model import Base
+
+if TYPE_CHECKING:
+    from model.habit import Habit
 
 
 class Log(Base):

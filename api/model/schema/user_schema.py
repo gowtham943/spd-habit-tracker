@@ -2,11 +2,14 @@ from datetime import datetime
 from typing import List
 
 from pydantic import BaseModel, ConfigDict
-from schema.habit_schema import HabitResponse
+
+from model.schema.habit_schema import HabitResponse
 
 
 class UserBase(BaseModel):
-    name: str
+    user_name: str
+    display_name: str
+    password: str
 
 
 class UserCreate(UserBase):

@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
 
-from fastapi import Depends, FastAPI
-from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import FastAPI
 
-from config.config_setting import settings
 from config.database_config import db
+from routes.auth_route import auth_router
+from routes.habit_route import habit_router
+from routes.log_route import log_router
+from routes.user_route import user_router
 
 
 @asynccontextmanager
@@ -16,16 +17,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="SPD Habit Tracker API", version="0.1.0")
-
-print(settings.DATABASE_URL)
-
-
-@app.get("/db-health")
-async def check_db_health(session: AsyncSession = Depends(db.get_session)):
-    result = await session.execute(text("SELECT 1"))
-    return {"status": "Database is connected and healthy!", "result": result.scalar()}
-
-
-@app.get("/health")
-def read_health():
-    return {"status": "healthy"}
+app.include_router(auth_router)
+app.include_router(habit_router)
+app.include_router(log_router)
+app.include_router(user_router)

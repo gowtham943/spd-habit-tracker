@@ -1,11 +1,13 @@
-from typing import List
+from typing import TYPE_CHECKING, List
 
-from api.model.base_model import Base
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from model.log import Log
-from model.user import User
+from model.base_model import Base
+
+if TYPE_CHECKING:
+    from model.log import Log
+    from model.user import User
 
 
 class Habit(Base):

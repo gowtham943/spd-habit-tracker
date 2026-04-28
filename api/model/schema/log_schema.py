@@ -11,7 +11,7 @@ class LogBase(BaseModel):
 
 
 class LogCreate(LogBase):
-    habit_id: int
+    pass
 
 
 class LogResponse(LogBase):
