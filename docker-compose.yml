@@ -5,7 +5,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: g9439
       POSTGRES_DB: habit_tracker_db
     ports:
       - "5432:5432"
@@ -17,18 +17,44 @@ services:
       timeout: 5s
       retries: 5
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: habit_ollama
+    restart: always
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    entrypoint: [ "/bin/sh", "-c" ]
+    command:
+      - |
+        ollama serve &
+        sleep 5
+        echo "📥 Checking and pulling embedding model..."
+        ollama pull nomic-embed-text
+        wait
+
   api:
     build: 
       context: ./api
     container_name: habit_api
     restart: always
+    command: sh -c "alembic upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    environment:
+      - PYTHONUNBUFFERED=1
     env_file:
       - .env_docker
     ports:
       - "8000:8000"
+    volumes:
+      - chromadb_data:/app/chroma_db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       db:
-        condition: service_healthy # Waits for DB to be fully ready before starting migrations!
+        condition: service_healthy
+      ollama:
+        condition: service_started
 
   ui:
     build: 
@@ -42,6 +68,7 @@ services:
     depends_on:
       - api
 
-# Define the persistent volume for the database
 volumes:
   pgdata:
+  chromadb_data:
+  ollama_models:
