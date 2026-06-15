@@ -2,7 +2,7 @@ import streamlit as st
 from client import api_client
 
 cookie_controller = st.session_state.cookie_manager
-st.title("🛡️ Welcome to Sai Priya Dharsini's Tracker!")
+st.title("🛡️ Welcome to Sai Priya Darsini's Habit Tracker!")
 st.write("Enter the realm to access your quests.")
 
 # Two tabs for a clean UI

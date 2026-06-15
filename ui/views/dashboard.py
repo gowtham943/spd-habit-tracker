@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 from client import api_client
+from chat.sidebar_chat import render_global_chatbot
+
+st.set_page_config(layout="wide")
+
+# 🚀 INJECT THE GLOBAL CHATBOT RIGHT HERE
+render_global_chatbot()
 
 st.title("🏰 Don's Dashboard")
 
