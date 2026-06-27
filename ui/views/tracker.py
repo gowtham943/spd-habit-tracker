@@ -20,7 +20,7 @@ if not habits:
 # Use Tabs to separate Today's Actions from Historical Data
 # Rename the tab to reflect the new time-travel ability!
 tab_log, tab_month, tab_year = st.tabs(
-    ["📅 The Quest Logbook", "📊 Monthly Stats", "🏆 Yearly Dominance"]
+    ["📅 The Habit Logbook", "📊 Monthly Stats", "🏆 Yearly Dominance"]
 )
 
 # ==========================================
