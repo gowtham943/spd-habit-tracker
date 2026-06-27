@@ -10,7 +10,7 @@ st.set_page_config(layout="wide")
 # 🚀 INJECT THE GLOBAL CHATBOT RIGHT HERE
 render_global_chatbot()
 
-st.title("🏰 Don's Dashboard")
+st.title("Dashboard View")
 
 # --- 1. SETUP THE TIME FRAME ---
 today = datetime.today()
@@ -40,26 +40,26 @@ with st.spinner("Decoding your epic stats..."):
                     {"Quest": habit["name"], "Date": log["completed_date"]}
                 )
 
-# --- 3. TOP ROW METRICS (GAMIFIED) ---
+# --- 3. TOP ROW METRICS ---
 st.divider()
 col1, col2, col3 = st.columns(3)
 
 with col1:
     st.metric(label="📜 Active Habits", value=len(habits))
 with col2:
-    st.metric(label="🎯 Side Quests Beaten (This Month)", value=len(completed_tasks))
+    st.metric(label="🎯 Achievements (This Month)", value=len(completed_tasks))
 with col3:
-    st.metric(label="⏳ Quests Pending", value=len(pending_tasks))
+    st.metric(label="⏳ Pending", value=len(pending_tasks))
 
 st.divider()
 # ==========================================
-# 6. MASTER DATA TABLES (The Ledger)
+# 6. MASTER DATA TABLES
 # ==========================================
 st.markdown("### 🗄️ The Master Ledger")
 
 # Use tabs to separate the tables cleanly
 tab_habit_table, tab_task_table = st.tabs(
-    ["📜 Daily Tracker Grid", "🎯 Side Quest Log"]
+    ["📜 Daily Tracker Grid", "🎯 Tracker Log"]
 )
 
 with tab_habit_table:
@@ -146,9 +146,9 @@ with col_left:
 
 # RIGHT COLUMN: Task Progress Chart
 with col_right:
-    st.markdown("### ⚔️ Side Quest Progress")
+    st.markdown("### Task Progress")
     if not month_tasks:
-        st.info("No side quests assigned for this month.")
+        st.info("No task assigned for this month.")
     else:
         # Create a progress gauge/bar
         task_data = pd.DataFrame(
@@ -179,7 +179,7 @@ with col_right:
 # --- 5. URGENT ACTION AREA ---
 if pending_tasks:
     st.divider()
-    st.markdown("### 🚨 Urgent Missions")
+    st.markdown("### 🚨 Priority Tasks")
 
     # Sort pending tasks by due date so the most urgent ones are on top
     pending_tasks.sort(key=lambda x: x["due_date"])
