@@ -1,11 +1,11 @@
 import streamlit as st
 
-st.title("⚡ Welcome to Sai Priya Darsini's Habit Tracker!")
-display_name = "Don"
+st.title("⚡ Welcome to SPD Habit Tracker!")
+display_name = "UserX"
 if st.session_state.user:
     display_name = st.session_state.user.get("display_name", "Don")
 st.subheader(f"Greetings, {display_name}! Where would you like to travel today?")
-st.write("Use the portals below to navigate through your productivity kingdom.")
+st.write("Use the portals below to navigate through your productivity.")
 
 st.divider()
 
@@ -18,13 +18,13 @@ with col1:
     with st.container(border=True):
         st.markdown("### 🏰 Dashboard")
         st.write(
-            "Get a bird's-eye view of your entire campaign. Check your monthly mastery, view the master ledger, and see urgent tasks."
+            "Get a bird's-eye view of your entire campaign. Check your monthly mastery, view the daily habits, and see urgent tasks."
         )
-        st.write("")  # Spacer
+        st.write("") 
         if st.button("Enter Dashboard ➔", key="btn_dash", use_container_width=True):
             st.switch_page("views/dashboard.py")
 
-    st.write("")  # Vertical spacer
+    st.write("") 
 
     # Card 2: Tracker
     with st.container(border=True):
@@ -54,7 +54,7 @@ with col2:
     with st.container(border=True):
         st.markdown("### 🎯 Task Remainder")
         st.write(
-            "One-off missions with deadlines. Stay on top of urgent tasks and claim victory to earn your spot in the Hall of Triumphs."
+            "One-off missions with deadlines. Stay on top of urgent tasks."
         )
         st.write("")  # Spacer
         if st.button("View Tasks ➔", key="btn_tasks", use_container_width=True):
